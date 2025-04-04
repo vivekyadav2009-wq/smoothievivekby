@@ -20,7 +20,7 @@
             width: 100vw;
             height: 100vh;
             object-fit: cover;
-            z-index: -2;
+            z-index: -3;
         }
         canvas {
             position: fixed;
@@ -28,7 +28,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -1;
+            z-index: -2;
             pointer-events: none;
             background: transparent;
         }
@@ -40,6 +40,8 @@
             align-items: center;
             color: white;
             text-align: center;
+            z-index: 1;
+            position: relative;
             animation: fadeIn 2s ease-in-out;
         }
         h1 {
@@ -73,8 +75,9 @@
     </style>
 </head>
 <body>
-    <video class="video-bg" autoplay muted loop>
-        <source src="https://cdn.jsdelivr.net/gh/VivekStreamAssets/smoothiebg.mp4" type="video/mp4">
+    <!-- Updated background video source for reliability -->
+    <video class="video-bg" autoplay muted loop playsinline>
+        <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
@@ -106,10 +109,10 @@
             reset() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * -height;
-                this.size = 20 + Math.random() * 20;
+                this.size = 20 + Math.random() * 10;
                 this.speedY = 1 + Math.random() * 2;
                 this.speedX = Math.random() * 1 - 0.5;
-                this.opacity = 0.5 + Math.random() * 0.5;
+                this.opacity = 0.6 + Math.random() * 0.4;
             }
             update() {
                 this.y += this.speedY;
@@ -118,15 +121,16 @@
             }
             draw() {
                 ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = '#ffffff';
+                ctx.fillStyle = 'rgba(255,255,255,0.8)';
                 ctx.beginPath();
-                ctx.ellipse(this.x, this.y, this.size * 0.6, this.size, 0, 0, 2 * Math.PI);
+                ctx.arc(this.x, this.y, this.size * 0.3, 0, 2 * Math.PI);
                 ctx.fill();
                 ctx.globalAlpha = 1;
             }
         }
 
         function initParticles(num) {
+            particles = [];
             for (let i = 0; i < num; i++) {
                 particles.push(new Particle());
             }
@@ -141,7 +145,7 @@
             requestAnimationFrame(animate);
         }
 
-        initParticles(30);
+        initParticles(50);
         animate();
     </script>
 </body>
