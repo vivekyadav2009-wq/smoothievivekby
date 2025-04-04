@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smoothie By Vivek</title>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -14,7 +15,7 @@
             align-items: center;
             height: 100vh;
             background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             overflow: hidden;
             text-align: center;
             position: relative;
@@ -33,25 +34,30 @@
             position: relative;
         }
         h1 {
-            font-size: 3em;
+            font-size: 4em;
             color: white;
             animation: slideIn 2s ease-in-out;
+            font-family: 'Pacifico', cursive;
+            text-shadow: 2px 4px 6px rgba(0,0,0,0.2);
         }
         .download-btn {
             display: inline-block;
-            padding: 15px 30px;
+            padding: 15px 40px;
             margin-top: 20px;
             font-size: 1.5em;
+            font-weight: 600;
             color: white;
-            background-color: #ff6f61;
+            background: linear-gradient(45deg, #ff6f61, #ff9472);
             border: none;
-            border-radius: 30px;
+            border-radius: 40px;
             cursor: pointer;
             text-decoration: none;
-            transition: transform 0.3s ease-in-out;
+            transition: all 0.4s ease-in-out;
+            box-shadow: 0 10px 20px rgba(255, 111, 97, 0.3);
         }
         .download-btn:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 15px 25px rgba(255, 111, 97, 0.4);
         }
         @keyframes fadeIn {
             from { opacity: 0; }
