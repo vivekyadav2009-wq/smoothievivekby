@@ -11,6 +11,7 @@
             height: 100%;
             font-family: Arial, sans-serif;
             overflow: hidden;
+            background-color: black; /* fallback bg color */
         }
         .video-bg {
             position: fixed;
@@ -29,6 +30,7 @@
             height: 100vh;
             z-index: -1;
             pointer-events: none;
+            background: transparent;
         }
         .container {
             height: 100vh;
@@ -72,7 +74,7 @@
 </head>
 <body>
     <video class="video-bg" autoplay muted loop>
-        <source src="https://streamable.com/z7pmnb" type="video/mp4">
+        <source src="https://cdn.jsdelivr.net/gh/VivekStreamAssets/smoothiebg.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
