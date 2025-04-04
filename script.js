@@ -1,11 +1,9 @@
 tsParticles.load("tsparticles", {
   fullScreen: { enable: false },
-  background: {
-    color: { value: "transparent" }
-  },
+  background: { color: { value: "transparent" } },
   particles: {
     number: {
-      value: 80,
+      value: 100,
       density: {
         enable: true,
         area: 800
@@ -14,7 +12,7 @@ tsParticles.load("tsparticles", {
     color: { value: "#ffffff" },
     shape: { type: "circle" },
     opacity: {
-      value: 0.3,
+      value: 0.2,
       random: true
     },
     size: {
@@ -22,7 +20,7 @@ tsParticles.load("tsparticles", {
     },
     move: {
       enable: true,
-      speed: 1,
+      speed: 1.5,
       direction: "none",
       outModes: "out"
     }
