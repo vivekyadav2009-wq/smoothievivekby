@@ -4,7 +4,79 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Smoothie By Vivek</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: black;
+    }
+
+    #tsparticles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      filter: blur(5px) brightness(0.5);
+      z-index: -2;
+    }
+
+    .container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      z-index: 1;
+      backdrop-filter: blur(8px);
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px #ff6f61;
+    }
+
+    .download-btn {
+      background-color: #ff6f61;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .download-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px #ff6f61;
+    }
+
+    canvas#leaves {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+  </style>
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
 </head>
 <body>
@@ -17,17 +89,118 @@
     Your browser does not support the video tag.
   </video>
 
-  <!-- Optional background audio -->
-  <!-- <audio autoplay loop>
-    <source src="your-audio.mp3" type="audio/mpeg">
-  </audio> -->
-
   <!-- Centered UI -->
   <div class="container">
     <h1>Smoothie By Vivek</h1>
     <a class="download-btn" href="SmoothieInstaller.exe" download>Download Smoothie</a>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Particle Script -->
+  <script>
+    tsParticles.load("tsparticles", {
+      fullScreen: { enable: false },
+      background: { color: { value: "transparent" } },
+      particles: {
+        number: {
+          value: 100,
+          density: {
+            enable: true,
+            area: 800
+          }
+        },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: {
+          value: 0.2,
+          random: true
+        },
+        size: {
+          value: { min: 1, max: 4 }
+        },
+        move: {
+          enable: true,
+          speed: 1.5,
+          direction: "none",
+          outModes: "out"
+        }
+      },
+      interactivity: {
+        events: {
+          onHover: {
+            enable: true,
+            mode: "repulse"
+          }
+        },
+        modes: {
+          repulse: {
+            distance: 100
+          }
+        }
+      }
+    });
+  </script>
+
+  <!-- Canvas Leaves -->
+  <canvas id="leaves"></canvas>
+  <script>
+    const canvas = document.getElementById('leaves');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Leaf {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * -height;
+        this.size = 10 + Math.random() * 20;
+        this.speedY = 1 + Math.random() * 2;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.opacity = 0.5 + Math.random() * 0.5;
+      }
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+        if (this.y > height) this.reset();
+      }
+      draw() {
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size * 0.3, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function initLeaves(num) {
+      particles = [];
+      for (let i = 0; i < num; i++) {
+        particles.push(new Leaf());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      for (let p of particles) {
+        p.update();
+        p.draw();
+      }
+      requestAnimationFrame(animate);
+    }
+
+    initLeaves(40);
+    animate();
+  </script>
 </body>
 </html>
