@@ -14,9 +14,11 @@
             font-family: Arial, sans-serif;
             overflow: hidden;
             text-align: center;
+            position: relative;
         }
         .container {
             animation: fadeIn 2s ease-in-out;
+            z-index: 1;
         }
         h1 {
             font-size: 3em;
@@ -47,6 +49,25 @@
             from { transform: translateY(-50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+        .leaf {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-image: url('https://cdn-icons-png.flaticon.com/512/2909/2909767.png');
+            background-size: cover;
+            animation: fall linear infinite;
+            opacity: 0.8;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -54,5 +75,18 @@
         <h1>Smoothie By Vivek</h1>
         <a class="download-btn" href="SmoothieInstaller.exe" download>Download Smoothie</a>
     </div>
+
+    <!-- Falling Leaves Script -->
+    <script>
+        const leafCount = 15;
+        for (let i = 0; i < leafCount; i++) {
+            const leaf = document.createElement('div');
+            leaf.classList.add('leaf');
+            leaf.style.left = Math.random() * 100 + 'vw';
+            leaf.style.animationDuration = (5 + Math.random() * 5) + 's';
+            leaf.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(leaf);
+        }
+    </script>
 </body>
 </html>
